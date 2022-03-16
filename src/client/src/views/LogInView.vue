@@ -1,6 +1,5 @@
 <template>
-    <section>
-        <div class="login-form">
+    <section class="login-form">
             <h1> Log In </h1>
             <form>
                 <input type="credentials" class="form-control" id="inputCredentials" placeholder="Username or Email">
@@ -8,7 +7,6 @@
                 <button type="submit" class="btn btn-dark btn-lg">Log In</button>
             </form>
             <router-link type="button" class="btn btn-light btn-lg" to="/register"> Register </router-link>
-        </div>
     </section>
 </template>
 
