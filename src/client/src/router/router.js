@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
+import LogInView from '../views/LogInView.vue';
+import RegisterView from '../views/RegisterView.vue';
 
 // set up routes tha my application needs: home, login, register, data, pipelines, models and their child routes
 const routes = [
@@ -16,11 +18,11 @@ const routes = [
   },
   {
     path: '/login',
-    component: AboutView
+    component: LogInView
   },
   {
     path: '/register',
-    component: AboutView
+    component: RegisterView
   },
   {
     path: '/data',
