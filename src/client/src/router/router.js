@@ -1,66 +1,62 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import AboutView from '../views/AboutView.vue';
 
 // set up routes tha my application needs: home, login, register, data, pipelines, models and their child routes
 const routes = [
+  // redirect url
+  { path: '/', redirect: '/home' },
   {
-    path: '/',
-    name: 'home',
+    path: '/home',
     component: HomeView
   },
   {
+    path:'/about',
+    component: AboutView
+  },
+  {
     path: '/login',
-    name: 'login',
-    component: null
+    component: AboutView
   },
   {
     path: '/register',
-    name: 'register',
-    component: null
+    component: AboutView
   },
   {
     path: '/data',
-    name: 'data',
-    component: null
-  },  
-  {
-    path: 'data/:id',
-    name: 'data by provided id',
-    component: null
+    component: AboutView
   },
   {
     path: '/models',
-    name: 'models',
-    component: null
-  },  
+    component: AboutView
+  }, 
+  {
+    path: '/pipelines',
+    component: AboutView
+  }/*, 
   {
     path: 'models/:id',
-    name: 'model',
     component: null
   },
   {
-    path: '/pipelines',
-    name: 'pipilines',
+    path: 'data/:id',
     component: null
   },
   {
     path: 'pipelines/:id',
-    name: 'pipeline',
     component: null,
     //add "children" route in pipelines/:id
     children:[
       {
         path: 'run',
-        name: 'run pipeline',
         component: null
       },
       {
         path: 'result',
-        name: 'pipeline result',
         component: null
       }
     ]
-  },
+  }*/
 ];
 
 const router = createRouter({
