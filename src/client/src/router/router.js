@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 
+// set up routes tha my application needs: home, login, register, data, pipelines, models and their child routes
 const routes = [
   {
     path: '/',
@@ -8,13 +9,58 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/login',
+    name: 'login',
+    component: null
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: null
+  },
+  {
+    path: '/data',
+    name: 'data',
+    component: null
+  },  
+  {
+    path: 'data/:id',
+    name: 'data by provided id',
+    component: null
+  },
+  {
+    path: '/models',
+    name: 'models',
+    component: null
+  },  
+  {
+    path: 'models/:id',
+    name: 'model',
+    component: null
+  },
+  {
+    path: '/pipelines',
+    name: 'pipilines',
+    component: null
+  },
+  {
+    path: 'pipelines/:id',
+    name: 'pipeline',
+    component: null,
+    //add "children" route in pipelines/:id
+    children:[
+      {
+        path: 'run',
+        name: 'run pipeline',
+        component: null
+      },
+      {
+        path: 'result',
+        name: 'pipeline result',
+        component: null
+      }
+    ]
+  },
 ];
 
 const router = createRouter({
