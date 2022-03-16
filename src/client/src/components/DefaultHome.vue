@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">
-    <router-link type="button" class="btn btn-light btn-lg" to="/login"> Log In </router-link>
-    <h1> Platform for SAP IdM data segmentation</h1>
-    <h3> Explore our site and build your own pipelines that could save you time in SAP Idm privileges management </h3>
-    <h4> Hurry up!!! Join our community now! </h4>
-    <router-link type="button" class="btn btn-dark btn-lg" to="/register"> Register </router-link>
-  </div>
+  <section>
+      <router-link type="button" class="btn btn-light btn-lg" to="/login"> Log In </router-link>
+      <h1> Platform for SAP IdM data segmentation</h1>
+      <h3> Explore our site and build your own pipelines that could save you time in SAP Idm privileges management </h3>
+      <h4> Hurry up!!! Join our community now! </h4>
+      <router-link type="button" class="btn btn-dark btn-lg" to="/register"> Register </router-link>
+  </section>
 </template>
 
 <script>
