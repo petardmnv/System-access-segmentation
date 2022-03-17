@@ -38,15 +38,18 @@ const routes = [
   }/*, 
   {
     path: 'models/:id',
+    props: true,
     component: null
   },
   {
     path: 'data/:id',
+    props: true,
     component: null
   },
   {
     path: 'pipelines/:id',
     component: null,
+    props: true,
     //add "children" route in pipelines/:id
     children:[
       {
