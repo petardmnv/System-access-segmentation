@@ -42,6 +42,7 @@ h1 {
     border-radius: 70px;
 }
 .register .btn.btn-dark.btn-lg {
+    background-color: black;
     border-radius: 70px;
     width: 50%;
     margin-bottom: 7%;
