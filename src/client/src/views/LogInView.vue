@@ -6,14 +6,18 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                 <button type="submit" class="btn btn-dark btn-lg">Log In</button>
             </form>
-            <router-link type="button" class="btn btn-light btn-lg" to="/register"> Register </router-link>
+            <router-link type="button" :class="'btn btn-'+ theme +' btn-lg'" to="/register"> Register </router-link>
     </section>
 </template>
 
 <script>
 
 export default{
-    
+    data(){
+        return {
+            theme: 'light'
+        }
+    }
 }
 </script>
 
@@ -41,6 +45,7 @@ h1 {
     border-radius: 70px;
 }
 .login-form .btn.btn-dark.btn-lg {
+    background-color: black;
     border-radius: 70px;
     width: 50%;
     margin-bottom: 7%;
