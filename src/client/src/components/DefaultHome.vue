@@ -21,7 +21,7 @@ export default {
 <style scoped>
 h3, h1, h4 {
   color: rgb(0, 0, 0);
-  margin: 40px 0 0;
+  margin: 3% 0 0;
 }
 ul {
   list-style-type: none;
@@ -34,17 +34,19 @@ li {
 a {
   color: rgb(255, 255, 255);
 }
-div.hello .btn.btn-dark.btn-lg {
+.btn.btn-dark.btn-lg {
   background-color: black;
-  margin: 40px;
+  width: 10%;
+  margin: 5%;
   border-radius: 80px;
 }
 .btn.btn-light.btn-lg {
   border-color: black;
   color: black;
   border-radius: 70px;
-  position: absolute;
-  top: 18px;
-  right: 140px;
+  margin-top: 1%;
+  margin-left: 82%;
+  margin-right: 5%;
+  width: 8%;
 }
 </style>
