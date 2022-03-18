@@ -36,16 +36,10 @@ li {
 a {
   color: rgb(255, 255, 255);
 }
-/* .btn.btn-dark.btn-lg {
-  background-color: black;
-  width: 10%;
-  margin: 5%;
-  border-radius: 70px;
-}
-.btn.btn-light.btn-lg {
-  border-color: black;
-  color: black;
-  border-radius: 70px;
+/*.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}*/
 
-} */
 </style>
