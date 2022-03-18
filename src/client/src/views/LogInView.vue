@@ -27,7 +27,7 @@ export default{
 
 <style>
 h1 {
-    padding-top: 3%;
+    padding-top: 30px;
     color: black;
     font-weight: bold;
     font-size: xx-large;
