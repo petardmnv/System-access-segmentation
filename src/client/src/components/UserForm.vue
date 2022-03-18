@@ -1,28 +1,39 @@
 <template>
     <!-- @submit.prevent - data is submited when button is clicked without a page refresh -->
     <form @submit.prevent="submitForm" class="form-data">
-        <div class="login-data" v-if="message === 'Log In'">
-            <input type="username" class="form-control" id="inputCredentials" @blur="clearValidation('username')" :class="{invalid: !username.isValid}" placeholder="Username or email" v-model="username.value">
-            <p v-if="!username.isValid"> Invalid username </p>
+        <div class="input-data">
+            <div class="login-data" v-if="message === 'Log In'">
+                <input type="username" class="form-control" id="inputCredentials" @input="validateCredentials()" placeholder="Username or email" v-model="username.value">
+                <p v-if="!username.isValid"> {{ username.errorMsg }} </p>   
+            </div>
+            <div class="login-data" v-else>
+                <input type="username" class="form-control" :class="{invalid: !username.isValid}" id="inputUsername" @input="validateUserName()" placeholder="Username" v-model="username.value">
+                <p v-if="!username.isValid"> {{ username.errorMsg }} </p>
+                <input type="email" class="form-control" id="inputEmail" :class="{invalid: !email.isValid}" @input="validateEmail()" placeholder="Email" v-model="email.value">
+                <p v-if="!email.isValid"> {{ email.errorMsg }} </p>
+            </div>
+            <input type="password" class="form-control" id="inputPassword" :class="{invalid: !password.isValid}" @input="validatePassword()" placeholder="Password" v-model="password.value">
+            <p v-if="!password.isValid"> {{ password.errorMsg }} </p>
+            <div class="login-data" v-if="message === 'Register'">
+                <input type="password" class="form-control" id="confirmPassword" :class="{invalid: !confirmPassword.isValid}" @input="validateConfirmPassword()" placeholder="Confirm password" v-model="confirmPassword.value">
+                <p v-if="!confirmPassword.isValid"> {{ confirmPassword.errorMsg }} </p>
+            </div>
+            <div class="last-message">
+                <p v-if="!formIsValid">
+                    Please fix the above errors and then submit again.
+                </p>
+            </div>
         </div>
-        <div class="login-data" v-else>
-            <input type="username" class="form-control" :class="{invalid: !username.isValid}" id="inputUsername" @blur="clearValidation('username')" placeholder="Username" v-model="username.value">
-            <p v-if="!username.isValid"> Invalid username </p>
-            <input type="email" class="form-control" id="inputEmail" :class="{invalid: !email.isValid}" @blur="clearValidation('email')" placeholder="Email" v-model="email.value">
-            <p v-if="!email.isValid"> Invalid email </p>
-        </div>
-        <input type="password" class="form-control" id="inputPassword" :class="{invalid: !password.isValid}" @blur="clearValidation('password')" placeholder="Password" v-model="password.value">
-        <p v-if="!password.isValid"> Invalid password </p>
-        <div class="last-message">
-            <p v-if="!formIsValid">
-                Please fix the above errors and then submit again.
-            </p>
-        </div>
-        <button type="submit" class="btn btn-dark btn-lg">{{ message }}</button>
+        <ButtonComponent :isBtn="true" btnClass="btn btn-dark btn-lg" :message="message" />
     </form>
 </template>
 <script>
+import ButtonComponent from '../components/ButtonComponent.vue';
+
 export default {
+    components: {
+        ButtonComponent
+    },
     // sending the form data to the parent component vie emit-event conception
     emits: ['export-data'],
     data(){
@@ -31,15 +42,23 @@ export default {
             //validation I will need to store a bool flag if the input is valid or not
             username: {
                 value: '',
-                isValid: true
+                isValid: true,
+                errorMsg: ""
             },
             email: {
                 value: '',
-                isValid: true
+                isValid: true,
+                errorMsg: ""
             },
             password: {
                 value: '',
-                isValid: true
+                isValid: true,
+                errorMsg: ""
+            },
+            confirmPassword: {
+                value: '',
+                isValid: true,
+                errorMsg: ""
             },
             // Add boolean flag that will be used to do basic form validation
             formIsValid: true
@@ -53,24 +72,94 @@ export default {
         }
     },
     methods: {
-        clearValidation(input){
-            this[input].isValid = true;
+        changeInputValidity(input, state){
+            this[input].isValid = state;
+        },
+        setInputErrorMsg(input, msg){
+            this[input].errorMsg = msg;
+        },
+        // Vlaidate inputs and if there is an eror save it in errMsg and display it in the input <p>
+        validateUserName(){
+            if (!this.username.value.trim()){
+                this.changeInputValidity('username', false);
+                this.setInputErrorMsg("username", "Username must contain at least one symbol. White spaces does not count.");
+                return false;
+            }
+            else {
+                if (!this.username.isValid){
+                    this.changeInputValidity('username', true);
+                }
+                return true;
+            }
+        },
+        validateCredentials(){
+            if (!this.username.value.trim()){
+                this.changeInputValidity('username', false);
+                this.setInputErrorMsg("username", "Enter invalid username or email.");
+                return false;
+            }
+            else {
+                if (!this.username.isValid){
+                    this.changeInputValidity('username', true);
+                }
+                return true;
+            }
+        },
+        validateEmail(){
+            if (!this.email.value.trim()){
+                this.changeInputValidity('email', false);
+                this.setInputErrorMsg("email", "Email is invalid.");
+            }
+            else if (!this.email.value.includes('@')) {
+                this.changeInputValidity('email', false);
+                this.setInputErrorMsg("email", "Please provide correct email that contains '@'.");
+            }
+            else {
+                if (!this.email.isValid){
+                    this.changeInputValidity('email', true);
+                }
+                return true;
+            }
+            return false;
+        },
+        validatePassword(){
+            if (this.password.value.length < 8){
+                this.changeInputValidity('password', false);
+                this.setInputErrorMsg("password", "Please enter at least 8 characters.");
+            }           
+            else {
+                if (!this.password.isValid){
+                    this.changeInputValidity('password', true);
+                }
+                return true;
+            }
+            return false;
+        },
+        validateConfirmPassword(){
+            if (this.confirmPassword.value !== this.password.value){
+                this.changeInputValidity('confirmPassword', false);
+                this.setInputErrorMsg("confirmPassword", "Passwords are not matching.");
+            }
+            else {
+                if (!this.confirmPassword.isValid){
+                    this.changeInputValidity('confirmPassword', true);
+                }
+                return true;
+            }
+            return false;
         },
         validateForm(){
             // Reset validation rule to true if it was previously false
             this.formIsValid = true;
-            // Basic validation
-            if (!this.username.value.trim()){
-                this.formIsValid = false;
-                this.username.isValid = false;
+            if (this.message == "Register"){
+                if(!this.validateUserName() || !this.validateEmail() || !this.validatePassword() || this.validateConfirmPassword()) {
+                    this.formIsValid = false;
+                }
             }
-            if (!this.email.value.trim()){
-                this.formIsValid = false;
-                this.email.isValid = false;
-            }
-        if (!this.password.value.trim() || this.password.value.length < 8){
-                this.formIsValid = false;
-                this.password.isValid = false;
+            else {
+                if (!this.validatePassword() || this.validateCredentials()){
+                    this.formIsValid = false;
+                }
             }
         },
         submitForm(){
@@ -99,7 +188,7 @@ export default {
      margin-left: 2%;
 }
 .last-message p{
-    margin-top: 5%;
+    margin-top: 5px;
     text-align: center;
 }
 form {
@@ -111,18 +200,15 @@ form {
     width: 30%;
     text-align: center;
 }
+.input-data{
+    margin-bottom: 45px;
+}
  .form-data .form-control {
     margin-top: 7%;
     background: #EEF6FB;
     border: 1px solid #D9E4F5;
     box-sizing: border-box;
     border-radius: 70px;
-}
-.btn.btn-dark.btn-lg {
-    background-color: black;
-    border-radius: 70px;
-    width: 50%;
-    margin-top: 10%;
 }
 .form-data .form-control.invalid {
     border: 1px solid red;
