@@ -29,6 +29,7 @@
 </template>
 <script>
 import ButtonComponent from '../components/ButtonComponent.vue';
+const validator = require('validator');
 
 export default {
     components: {
@@ -106,13 +107,9 @@ export default {
             }
         },
         validateEmail(){
-            if (!this.email.value.trim()){
+            if (!validator.isEmail(this.email.value)){
                 this.changeInputValidity('email', false);
-                this.setInputErrorMsg("email", "Email is invalid.");
-            }
-            else if (!this.email.value.includes('@')) {
-                this.changeInputValidity('email', false);
-                this.setInputErrorMsg("email", "Please provide correct email that contains '@'.");
+                this.setInputErrorMsg("email", "Please provide correct email.");
             }
             else {
                 if (!this.email.isValid){
