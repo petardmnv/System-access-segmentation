@@ -11,9 +11,8 @@
 import UserForm from '../components/UserForm.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 
-export default{
-
-    components:{
+export default {
+    components: {
         UserForm,
         ButtonComponent
     },
@@ -22,7 +21,9 @@ export default{
             console.log(formData);
         }
     }
-}
+    //Send https request
+    
+};
 </script>
 
 <style>

@@ -36,10 +36,9 @@ li {
 a {
   color: rgb(255, 255, 255);
 }
-/*.buttons {
-  display: flex;
+.buttons {
   flex-direction: row;
   justify-content: space-between;
-}*/
+}
 
 </style>
