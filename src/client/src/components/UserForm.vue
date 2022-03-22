@@ -82,7 +82,7 @@ export default {
         validateUserName(){
             if (!this.username.value.trim()){
                 this.changeInputValidity('username', false);
-                this.setInputErrorMsg("username", "Username must contain at least one symbol. White spaces does not count.");
+                this.setInputErrorMsg("username", "Username must contain at least one symbol. White spaces do not count.");
                 return false;
             }
             else {
@@ -95,7 +95,7 @@ export default {
         validateCredentials(){
             if (!this.username.value.trim()){
                 this.changeInputValidity('username', false);
-                this.setInputErrorMsg("username", "Enter invalid username or email.");
+                this.setInputErrorMsg("username", "Enter valid username or email.");
                 return false;
             }
             else {
@@ -151,13 +151,21 @@ export default {
         validateForm(){
             // Reset validation rule to true if it was previously false
             this.formIsValid = true;
+
+            //check if all inputs are valid
             if (this.message == "Register"){
-                if(!this.validateUserName() || !this.validateEmail() || !this.validatePassword() || this.validateConfirmPassword()) {
+                let isValidName = this.validateUserName();
+                let isValidEmail = this.validateEmail();
+                let isValidPassword = this.validatePassword();
+                let isValidConfirmPassword = this.validateConfirmPassword();
+                if (!isValidName || !isValidEmail || !isValidPassword || !isValidConfirmPassword) {
                     this.formIsValid = false;
                 }
             }
             else {
-                if (!this.validatePassword() || this.validateCredentials()){
+                let isValidCredentials = this.validatePassword();
+                let isValidPassword = this.validateCredentials();
+                if (!isValidCredentials || !isValidPassword){
                     this.formIsValid = false;
                 }
             }
@@ -177,7 +185,7 @@ export default {
             return this.$emit("export-data", formData);
         }
     }
-}
+};
 </script>
 
 <style scoped>
