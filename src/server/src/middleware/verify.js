@@ -1,16 +1,17 @@
 // Verify user credentials like username or email
 
 import User from '..models/User.js';
+import { urlAlphabet } from 'nanoid';
 module.exports = {
     checkDublicateUsername: (req, res, next) => {
         try {
             let username = await User.find({ username: req.body.username }).exec();
-            if (email) {
+            if (username) {
                 return res.status(400).send({ message: "Failed! Email is already in use!" });
             }
             next();
         } catch (error) {
-            return res.status(500).send({ message: error });
+            res.status(500).send({ message: error });
         }
     },
     checkDublicateEmail: async (req, res, next) => {
@@ -21,7 +22,7 @@ module.exports = {
             }
             next();
         } catch (error) {
-            return res.status(500).send({ message: error });
+            res.status(500).send({ message: error });
         }
     }
 };
