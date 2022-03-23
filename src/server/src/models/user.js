@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { saltRounds } = require('../config/salt.js');
+const { secret } = require('../config/auth.js');
 
 // Create model which has its data schema for User information in the site
 const userSchema = new mongoose.Schema({
@@ -33,6 +36,14 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// Instanse available function for creating authorization token - JWT
+userSchema.methods.generateAuthToken = async function() {
+    // generate token. Get user id from mongo collection and add it to the token payload
+    const token = await jwt.sign({ id: this._id.toString() }, secret, { expiresIn: "2 days" });
+    return token;
+}
+
+// Model available function for authenticationg user by given credentials
 userSchema.statics.findByCredentials = async function(username, email, password){
     let userData = null;
     if (!username) {
@@ -65,7 +76,7 @@ userSchema.pre('save', async function(next) {
     // isModified(attr) is used to check if the password is modified. If it's not then i don't need
     // to hash it again
     if (this.isModified('password')) {
-        this.password = await bcrypt.hash(this.password, 8);
+        this.password = await bcrypt.hash(this.password, saltRounds);
     }
     next();
 });
