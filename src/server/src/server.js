@@ -15,7 +15,7 @@ const authRouter = require('./routes/auth/auth.js');
 
 app.use(express.json());
 
-//app.use('/', authRouter);
+app.use('/', authRouter);
 
 // set port who listens for requests
 const PORT = port || 8081;
