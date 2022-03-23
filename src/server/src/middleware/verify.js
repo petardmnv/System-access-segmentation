@@ -1,9 +1,8 @@
 // Verify user credentials like username or email
+const User = require('../models/user.js');
 
-import User from '..models/User.js';
-import { urlAlphabet } from 'nanoid';
 module.exports = {
-    checkDublicateUsername: (req, res, next) => {
+    checkDublicateUsername: async(req, res, next) => {
         try {
             let username = await User.find({ username: req.body.username }).exec();
             if (username) {
