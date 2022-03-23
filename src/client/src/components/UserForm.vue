@@ -172,7 +172,7 @@ export default {
             return false;
         },
         validateConfirmPassword() {
-            if (this.confirmPassword.value !== this.password.value) {
+            if (this.confirmPassword.value !== this.password.value || !this.confirmPassword.value) {
                 this.changeInputValidity("confirmPassword", false);
                 this.setInputErrorMsg("confirmPassword", "Passwords are not matching.");
             } else {
@@ -220,18 +220,18 @@ export default {
             let email = this.email.value;
             if (this.message === "Log In") {
                 if (validator.isEmail(username.trim().toLowerCase())) {
-                    //if the input is email then trim the result and set characters to lowercase and set up username.value = "unused"
-                    email = this.username.value.trim();
-                    username = 'unused';
+                    //if the input is email then trim the result and set characters to lowercase and set up username.value to null
+                    email = this.username.value.trim().toLowerCase();
+                    username = null;
                 } else {
-                    // else set email to unused. Then when sending request to the server I will ignore valiable with value === 'unused' 
-                    email = 'unused';
+                    // else set email to null.
+                    email = null;
                 }
             }
 
             const formData = {
                 username: username,
-                email: email.toLowerCase(),
+                email: email,
                 password: this.password.value,
             };
             return this.$emit("export-data", formData);
