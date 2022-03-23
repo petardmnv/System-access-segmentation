@@ -22,7 +22,9 @@ module.exports = {
                 await User.deleteOne({ username });
                 res.status(400).send({ message: error.message });
             }
-            res.status(200).send({ token: token, user: user });
+            console.log(user.username);
+            let respObj = { "id": user._id, "username": user.username, "email": user.email };
+            res.status(200).send({ token: token, user: respObj });
         } catch (error) {
             res.status(500).send({ message: error.message });
         }
@@ -32,7 +34,8 @@ module.exports = {
         try {
             const user = await User.findByCredentials(username, email, password);
             await comparePassword(password, user.password);
-            res.status(200).send(user);
+            let respObj = { "id": user._id, "username": user.username, "email": user.email };
+            res.status(200).send(respObj);
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
