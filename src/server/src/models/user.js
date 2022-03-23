@@ -6,7 +6,13 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        validate(value) {
+            if (!value) {
+                throw new Error('Username is invalid');
+            }
+        }
     },
     email: {
         type: String,
@@ -58,11 +64,9 @@ userSchema.pre('save', async function(next) {
     //this is reference to teh documenta that we are modifying via save event
     // isModified(attr) is used to check if the password is modified. If it's not then i don't need
     // to hash it again
-    console.log(this.password);
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 8);
     }
-    console.log(this.password);
     next();
 });
 
