@@ -45,6 +45,7 @@ userSchema.methods.generateAuthToken = async function() {
 
 // Model available function for authenticationg user by given credentials
 userSchema.statics.findByCredentials = async function(username, email, password){
+    // Get user by providing username or email
     let userData = null;
     if (!username) {
         userData = await User.findOne({ email });
@@ -57,13 +58,7 @@ userSchema.statics.findByCredentials = async function(username, email, password)
     if (!userData) {
         throw new Error("Unable to login.");
     }
-
-    // compare passwwords
-    let isValid = await bcrypt.compare(password, userData.password);
-
-    if (!isValid) {
-        throw new Error("Unable to login.");
-    }
+    
     // if everything passes return data for the current user
     return userData;
 }

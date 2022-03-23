@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const User = require('../../models/user.js');
+const { comparePassword } = require('./comparePassword.js')
 
 module.exports = {
     register: async (req, res) => {
-        let {username, email, password} = req.body;
+        let { username, email, password } = req.body;
         try {
             const user = await User.create({
                 username: username,
@@ -27,9 +28,10 @@ module.exports = {
         }
     },
     login: async (req, res) => {
-        let {username, email, password} = req.body;
+        let { username, email, password } = req.body;
         try {
             const user = await User.findByCredentials(username, email, password);
+            await comparePassword(password, user.password);
             res.status(200).send(user);
         } catch (error) {
             res.status(401).send({ message: error.message });
