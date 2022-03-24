@@ -34,14 +34,36 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8
-    }
+    },
+    passwordChangedAt: Date
 });
 
 // Instanse available function for creating authorization token - JWT
 userSchema.methods.generateAuthToken = async function () {
-    // generate token. Get user id from mongo collection and add it to the token payload
-    const token = await jwt.sign({ id: this._id.toString() }, secret, { expiresIn: "2 days" });
+    let token;
+    try {
+        // generate token. Get user id from mongo collection and add it to the token payload
+        token = await jwt.sign({ id: this._id.toString() }, secret, { expiresIn: "2 days" });
+    } catch (error) {
+        throw new AppError(error.message, 401);
+    }
     return token;
+}
+
+// Method that will check if user have changed his password after token initialization.
+// Will be used in middleware jwt verification
+userSchema.methods.changedPasswordAfterTokenGeneration = function(tokenCreatedAt) {
+    // Every user has property changedPasswordAt which will be
+    // available if the current user changed his pass. If not then 
+    // user didn't changed his pass
+    // So i this prop exists then we need to compare the timestamps
+    if (this.passwordChangedAt) {
+        // The result from .getTime is in milliseconds so i need to deivde it by 1000
+        // so that i can compare it with tokenCreatedAt
+        const changeToTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+        return tokenCreatedAt < changeToTimestamp;
+    }
+    return false;
 }
 
 // Model available function for authenticationg user by given credentials
