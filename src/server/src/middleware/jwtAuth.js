@@ -34,7 +34,6 @@ module.exports = {
         }
 
         // If all checks passed then give current user data to the req and call next()
-        console.log(currentUser);
         let currentUserData = {id: currentUser._id, username: currentUser.username, email: currentUser.email }
 
         req.user = currentUserData;

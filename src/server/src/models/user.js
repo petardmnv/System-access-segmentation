@@ -3,7 +3,6 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { saltRounds } = require('../config/salt.js');
-const { secret } = require('../config/auth.js');
 const AppError = require('../utils/appError.js')
 
 // Create model which has its data schema for User information in the site
@@ -37,18 +36,6 @@ const userSchema = new mongoose.Schema({
     },
     passwordChangedAt: Date
 });
-
-// Instanse available function for creating authorization token - JWT
-userSchema.methods.generateAuthToken = async function () {
-    let token;
-    try {
-        // generate token. Get user id from mongo collection and add it to the token payload
-        token = await jwt.sign({ id: this._id.toString() }, secret, { expiresIn: "2 days" });
-    } catch (error) {
-        throw new AppError(error.message, 401);
-    }
-    return token;
-}
 
 // Method that will check if user have changed his password after token initialization.
 // Will be used in middleware jwt verification
