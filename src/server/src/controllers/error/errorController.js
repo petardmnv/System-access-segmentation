@@ -5,7 +5,8 @@ module.exports = {
         
         //send response with proveded  status and message
         res.status(err.statusCode).send({
-          message: err.message
+          message: err.message,
+          stack: err.stack
         });
     }
 };
