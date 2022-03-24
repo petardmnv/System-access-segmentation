@@ -46,9 +46,10 @@ module.exports = {
             // Compare provided password with that stored in the db
             await comparePassword(password, user.password);
 
+            const token = await user.generateAuthToken();
             //Create response object for success scenario
             let respObj = { "id": user._id, "username": user.username, "email": user.email };
-            res.status(200).send({ user: respObj });
+            res.status(200).send({ token: token, user: respObj });
 
         } catch (error) {
             next(error);
