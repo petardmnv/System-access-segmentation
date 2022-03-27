@@ -1,6 +1,6 @@
 <template>
   <section class="register">
-    <InfoDialog :show="!!error" :heading="error" @close="closeDialog"/>
+    <DialogComponent :show="!!error" :heading="error" @close="closeDialog"/>
     <h1>Register</h1>
     <!-- Listen to 'export-data' event occurs -->
     <UserForm @export-data="getData" :message="'Register'"></UserForm>
@@ -16,7 +16,7 @@
 import UserForm from "../components/UserForm.vue";
 import ButtonComponent from "../components/ButtonComponent.vue";
 import store from "@/store";
-import InfoDialog from "@/ui/InfoDialog.vue";
+import DialogComponent from "../components/DialogComponent.vue";
 
 export default {
   data() {
@@ -27,7 +27,7 @@ export default {
   components: {
     UserForm,
     ButtonComponent,
-    InfoDialog
+    DialogComponent
   },
   methods: {
     getData(formData) {
