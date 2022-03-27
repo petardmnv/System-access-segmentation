@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { saltRounds } = require('../config/salt.js');
-const AppError = require('../utils/appError.js')
+const AppError = require('../utils/appError.js');
 
 // Create model which has its data schema for User information in the site
 const userSchema = new mongoose.Schema({
