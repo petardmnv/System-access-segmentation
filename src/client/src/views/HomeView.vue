@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <DefaultHome/>
+    <DefaultHome />
   </div>
 </template>
 
 <script>
-import DefaultHome from '../components/DefaultHome.vue'
+import DefaultHome from "../components/DefaultHome.vue";
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    DefaultHome
-  }
+    DefaultHome,
+  },
 };
 </script>
