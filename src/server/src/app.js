@@ -1,11 +1,33 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+var cors = require('cors')
 const app = express();
+
 
 const { globalErrorHandler } = require('./controllers/error/errorController.js');
 const AppError = require('./utils/appError.js');
 const authRouter = require('./routes/auth/auth.js');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
+// Set security HTTP headers
+app.use(helmet());
+
+// Mongo sanitize prevents request from NoSQL query injections
+app.use(mongoSanitize());
+
+// XSS cleaner prevent request from malicious code parsed into request
+app.use(xss());
+
+// Body parser. Reading data from request body into req.body
 app.use(express.json());
+
+// Add cookie parser. Readingdata from request cookie to req.cookie
+app.use(cookieParser());
+
+// Use cors
+app.use(cors())
 
 app.use('/', authRouter);
 
