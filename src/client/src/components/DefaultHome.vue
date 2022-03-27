@@ -1,27 +1,62 @@
 <template>
-  <div class="hello">
-    <router-link type="button" class="btn btn-light btn-lg" to="/login"> Log In </router-link>
-    <h1> Platform for SAP IdM data segmentation</h1>
-    <h3> Explore our site and build your own pipelines that could save you time in SAP Idm privileges management </h3>
-    <h4> Hurry up!!! Join our community now! </h4>
-    <router-link type="button" class="btn btn-dark btn-lg" to="/register"> Register </router-link>
-  </div>
+  <section>
+    <div class="logout">
+      <ButtonComponent
+        v-if="isAuthenticated"
+        @click="logout"
+        :isBtn="true"
+        message="Log Out"
+        :btnClass="'btn btn-dark btn-lg'"
+      ></ButtonComponent>
+    </div>
+    <h1>Platform for SAP IdM data segmentation</h1>
+    <h3>
+      Explore our site and build your own pipelines that could save you time in
+      SAP Idm privileges management
+    </h3>
+    <h4>Hurry up!!! Join our community now!</h4>
+    <div v-if="!isAuthenticated" class="buttons">
+      <ButtonComponent
+        :message="'Register'"
+        :path="'/register'"
+        :btnClass="'btn btn-dark btn-lg'"
+      />
+      <ButtonComponent
+        :message="'Log In'"
+        :path="'/login'"
+        :btnClass="'btn btn-light btn-lg'"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
+import ButtonComponent from "../components/ButtonComponent.vue";
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  components: {
+    ButtonComponent,
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.replace("/home");
+    },
+  },
+};
 </script>
 
 <!-- Scoped attribute to limit CSS to this component only -->
 <style scoped>
-h3, h1, h4 {
+h3,
+h1,
+h4 {
   color: rgb(0, 0, 0);
-  margin: 40px 0 0;
+  margin: 3% 0 0;
 }
 ul {
   list-style-type: none;
@@ -34,17 +69,14 @@ li {
 a {
   color: rgb(255, 255, 255);
 }
-div.hello .btn.btn-dark.btn-lg {
-  background-color: black;
-  margin: 40px;
-  border-radius: 80px;
+.buttons {
+  flex-direction: row;
+  justify-content: space-between;
 }
-.btn.btn-light.btn-lg {
-  border-color: black;
-  color: black;
-  border-radius: 70px;
-  position: absolute;
-  top: 18px;
-  right: 140px;
+.logout {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
 }
 </style>
