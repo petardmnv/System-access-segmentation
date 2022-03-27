@@ -66,7 +66,7 @@ userSchema.statics.findByCredentials = async function (username, email) {
 
     // check if data is empty 
     if (!userData) {
-        throw new AppError("Unable to login.", 401);
+        throw new AppError("Incorrect username or email.", 401);
     }
 
     // if everything passes return data for the current user
