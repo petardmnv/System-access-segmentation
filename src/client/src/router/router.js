@@ -1,8 +1,10 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import LogInView from '../views/LogInView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import PipelineView from '../views/PipelineView.vue';
+import store from '@/store';
 
 // set up routes tha my application needs: home, login, register, data, pipelines, models and their child routes
 const routes = [
@@ -13,7 +15,7 @@ const routes = [
     component: HomeView
   },
   {
-    path:'/about',
+    path: '/about',
     component: AboutView
   },
   {
@@ -26,15 +28,18 @@ const routes = [
   },
   {
     path: '/data',
-    component: AboutView
+    component: AboutView,
+    meta: { needAuthentication: true }
   },
   {
     path: '/models',
-    component: AboutView
-  }, 
+    component: AboutView,
+    meta: { needAuthentication: true }
+  },
   {
     path: '/pipelines',
-    component: AboutView
+    component: PipelineView,
+    meta: { needAuthentication: true }
   }/*, 
   {
     path: 'models/:id',
@@ -65,19 +70,29 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: routes,
   linkActiveClass: 'active',
   // to - the going age properties,
   // from - page came from properties
   // savedPosition - saved scroll level of the left page 
-  scrollBehavour(to, from, savedPosition){
+  scrollBehavour(to, from, savedPosition) {
     // if saved position exists then jump to it in the next page
     if (savedPosition) {
       return savedPosition;
     }
     //else set default position on new page 
-     return { left: 0, top: 0 };
+    return { left: 0, top: 0 };
+  }
+});
+
+
+// Deni access to routes who need authentication if user didn't authenticate himself
+router.beforeEach(function (to, from, next) {
+  if (to.meta.needAuthentication && !store.getters.isAuthenticated) {
+    next('/login');
+  } else {
+    next();
   }
 });
 
