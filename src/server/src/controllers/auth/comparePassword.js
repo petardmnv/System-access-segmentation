@@ -5,7 +5,7 @@ module.exports = {
         // compare passwwords
         let isValid = await bcrypt.compare(plainPassword, hashedPassword);
         if (!isValid) {
-            throw new AppError("Unable to login.", 401);
+            throw new AppError("Invalid password.", 401);
         }
     }
 };
