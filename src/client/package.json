@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": {"/api": "http://localhost:8081/api"},
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -22,6 +23,7 @@
     "@vue/test-utils": "^2.0.0-0",
     "axios": "^0.26.1",
     "chai": "^4.2.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "vue-cookies": "^1.7.4"
   }
 }
