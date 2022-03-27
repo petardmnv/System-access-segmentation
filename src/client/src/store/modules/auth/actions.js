@@ -1,23 +1,45 @@
 import axios from 'axios';
 export default {
-    login(){
-
-    },
-    async register(context, payload){
-        const response = await axios.post('/register', {
-            username: payload.username,
-            password: payload.password 
-          });
-        if (!response.ok){
-            //error occured
-            console.log(response);
-            const error = new Error(response.message || "An error occured while sending the request!");
-            throw error;
+    async register(context, payload) {
+        let response;
+        try {
+            response = await axios.post('http://localhost:8081/register', {
+                username: payload.username,
+                email: payload.email,
+                password: payload.password
+            });
+            // reposnose is ok 
+            context.commit("setUser", {
+                userId: response.data._id,
+                token: response.data.token
+            });
+        } catch (error) {
+            throw new Error(error.response.data.message || "An error occured while sending the request!");
         }
-        // reposnose is ok 
-        console.log(response);
-        context.commit("setUser", {
-            
+    },
+    async login(context, payload) {
+        let response;
+        try {
+            response = await axios.post('http://localhost:8081/login', {
+                username: payload.username,
+                email: payload.email,
+                password: payload.password
+            });
+            // reposnose is ok 
+            console.log('Going into commit event');
+            context.commit("setUser", {
+                userId: response.data._id,
+                token: response.data.token
+            });
+            console.log('Passed commit event.');
+        } catch (error) {
+            throw new Error(error.response.data.message || "An error occured while sending the request!");
+        }
+    },
+    logout(context) {
+        context.commit('setUser', {
+            userId: null,
+            token: null
         });
     }
 };
