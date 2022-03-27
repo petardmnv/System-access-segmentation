@@ -21,9 +21,13 @@ const createSendToken = async (user, code, res) => {
     try {
         // generate token. by given user id and add it to the token payload
         token = jwt.sign({ id: user._id.toString() }, secret, { expiresIn:  tokenExpiration});
+
+        // WARNING THIS IS STUPID BUT I DON"T HAVE BETTER SOLUTION
+        let expiresIn = new Date().getTime() + cookieExpiration * 24 * 60 * 60 * 1000;
+
         // send token into cookie 
         // set expires param and convert .env variable into milliseconds
-        res.cookie('jwt', token, cookieOptions).status(code).send({token: token, _id: user._id, username: user.username, email: user.email});
+        res.cookie('jwt', token, cookieOptions).status(code).send({token: token, _id: user._id, username: user.username, email: user.email, expiresIn: expiresIn});
     } catch (error) {
         throw new AppError("Cannot sign jwt token.", 401);
     }
