@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require('../../models/user.js');
 const { comparePassword } = require('./comparePassword.js');
 const AppError = require('../../utils/appError.js');
-const { secret, tokenExpiration, cookieExpiration, nodeEnv } = require('../../config/auth.js');
+const { secret, tokenExpiration, cookieExpiration, nodeEnv} = require('../../config/auth.js');
 
 // Function for creating and sending authorization token - JWT
 const createSendToken = async (user, code, res) => {
@@ -20,13 +20,12 @@ const createSendToken = async (user, code, res) => {
     let token;
     try {
         // generate token. by given user id and add it to the token payload
-        token = await jwt.sign({ id: user._id.toString() }, secret, { expiresIn:  tokenExpiration});
+        token = jwt.sign({ id: user._id.toString() }, secret, { expiresIn:  tokenExpiration});
         // send token into cookie 
         // set expires param and convert .env variable into milliseconds
-        res.cookie('jwt', token, cookieOptions);
-        res.status(code).send({token: token});
+        res.cookie('jwt', token, cookieOptions).status(code).send({token: token, _id: user._id, username: user.username, email: user.email});
     } catch (error) {
-        throw new AppError(error.message, 401);
+        throw new AppError("Cannot sign jwt token.", 401);
     }
 }
 
@@ -41,9 +40,8 @@ module.exports = {
                 email: email,
                 password: password
             });
-
             // If something went wrong with saving user then return error
-            if (!user) return next(new AppError("Unable to register", 401));
+            if (!user) return next(new AppError("Unable to save user into db. Try again", 500));
 
             // Remove user from db if jwt token generation fails
             try {
@@ -51,10 +49,10 @@ module.exports = {
             } catch (error) {
                 // Remove user from db if jwt token generation fails
                 await User.deleteOne({ username });
-                next(new AppError(error.message, 401));
+                return next(new AppError(error.message, 401));
             }
         } catch (error) {
-            next(new AppError(error.message, 400));
+            return next(new AppError("Username or email already exists.", 500));
         }
     },
     login: async (req, res, next) => {
@@ -62,13 +60,15 @@ module.exports = {
         try {
             // find user with provided data
             const user = await User.findByCredentials(username, email);
-
-            // Compare provided password with that stored in the db
-            await comparePassword(password, user.password);
-
+            try {
+                // Compare provided password with that stored in the db
+                await comparePassword(password, user.password);   
+            } catch (error) {
+                return next(new AppError(error.message, 401));
+            }
             createSendToken(user, 200, res);
         } catch (error) {
-            next(error);
+            return next(new AppError(error.message, 500));
         }
     }
 };
