@@ -8,7 +8,7 @@ module.exports = {
             if (!models) {
                 return next(new AppError(error.message || "Empty models data.", 500));
             }
-            res.status(200).send(models);
+            res.status(200).send({models: models});
         } catch (error) {
             return next(new AppError(error.message || "Failed to load models data", 500));
         }
@@ -20,7 +20,7 @@ module.exports = {
             if (!model) {
                 return next(new AppError(error.message || "Empty model data.", 500));
             }
-            res.status(200).send(model);
+            res.status(200).send({model: model});
         } catch (error) {
             return next(new AppError(error.message || "Failed to load model data", 500));
         }
