@@ -56,4 +56,15 @@ export default {
   margin-left: 2ch;
   margin-right: 2ch;
 }
+
+.btn.btn-light.btn-sm {
+  height: 3vh;
+  width: 10vh;
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-radius: 90px;
+  text-align: center;
+  margin-left: 2ch;
+  margin-right: 2ch;
+}
 </style>
