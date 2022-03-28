@@ -1,12 +1,13 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-var cors = require('cors')
+var cors = require('cors');
 const app = express();
 
 
 const { globalErrorHandler } = require('./controllers/error/errorController.js');
 const AppError = require('./utils/appError.js');
 const authRouter = require('./routes/auth/auth.js');
+const modelRouter = require('./routes/model/model.js');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(cors())
 
 app.use('/', authRouter);
+app.use('/', modelRouter);
 
 // Handler for all invalid server urls
 app.all('*', (req, res, next) => {
