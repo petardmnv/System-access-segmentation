@@ -2,7 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": {"/api": "http://localhost:8081/api"},
+  "proxy": {
+    "/api": "http://localhost:8081/api"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -17,7 +19,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-unit-mocha": "^4.5.16",
+    "@vue/cli-plugin-unit-mocha": "^4.5.17",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "^5.0.4",
     "@vue/test-utils": "^2.0.0-0",

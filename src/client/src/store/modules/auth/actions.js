@@ -18,9 +18,8 @@ export default {
     },
     async setAuthentication(context, payload) {
         const route = payload.route;
-        let response;
         try {
-            response = await axios.post(`http://localhost:8081/${route}`, {
+            const response = await axios.post(`http://localhost:8081/${route}`, {
                 username: payload.username,
                 email: payload.email,
                 password: payload.password
@@ -33,7 +32,7 @@ export default {
 
 
             // Log out if tokenexpiration has ended
-            timer = setTimeout(function() {
+            timer = setTimeout(function () {
                 context.dispatch('logout');
             }, tokenExpiration - new Date().getTime());
 
@@ -60,5 +59,32 @@ export default {
             userId: null,
             token: null
         });
+    },
+    attemptLogIn(context) {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+        const tokenExpiration = localStorage.getItem('tokenExpiration');
+
+        // If token and user id exist then log out function was not called
+        if (token && userId && tokenExpiration) {
+
+            let remainingTokenTime = tokenExpiration - new Date().getTime();
+            console.log(remainingTokenTime)
+            // If remaining time is less than 1 second don't log in automaticaly
+            if (remainingTokenTime < 1* 1000) {
+                return;
+            }
+
+            // Log out if tokenexpiration has ended
+            timer = setTimeout(function () {
+                context.dispatch('logout');
+            }, remainingTokenTime);
+
+            // Set token and user again
+            context.commit('setUser', {
+                token,
+                userId
+            });
+        }
     }
 };

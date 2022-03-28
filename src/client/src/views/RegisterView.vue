@@ -1,10 +1,10 @@
 <template>
   <section class="register">
-    <DialogComponent :show="!!error" :heading="error" @close="closeDialog"/>
+    <dialog-component :show="!!error" :heading="error" @close="closeDialog"/>
     <h1>Register</h1>
     <!-- Listen to 'export-data' event occurs -->
-    <UserForm @export-data="getData" :message="'Register'"></UserForm>
-    <ButtonComponent
+    <authentication-component @export-data="getData" :message="'Register'"/>
+    <button-component
       :message="'Log In'"
       :path="'/login'"
       :btnClass="'btn btn-light btn-lg'"
@@ -13,21 +13,11 @@
 </template>
 
 <script>
-import UserForm from "../components/UserForm.vue";
-import ButtonComponent from "../components/ButtonComponent.vue";
-import store from "@/store";
-import DialogComponent from "../components/DialogComponent.vue";
-
 export default {
   data() {
     return {
       error: null
     };
-  },
-  components: {
-    UserForm,
-    ButtonComponent,
-    DialogComponent
   },
   methods: {
     getData(formData) {
@@ -35,7 +25,7 @@ export default {
     },
     async sendRequest(reqData) {
       try {
-        await store.dispatch("register", reqData);
+        await this.$store.dispatch("register", reqData);
         // Redirect
         this.$router.replace("/home");
       } catch (error) {

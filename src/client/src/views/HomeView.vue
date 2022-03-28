@@ -2,12 +2,12 @@
   <div class="content">
     <div class="contentLogIn" v-if="isAuthenticated">
       <div class="logout">
-        <ButtonComponent
+        <button-component
           @click="logout"
           :isBtn="true"
           message="Log Out"
           :btnClass="'btn btn-dark btn-lg'"
-        ></ButtonComponent>
+        ></button-component>
       </div>
     </div>
     <h1>Platform for SAP IdM data segmentation</h1>
@@ -18,12 +18,12 @@
     <div class="contentLogOut" v-if="!isAuthenticated">
       <h4>Hurry up!!! Join our community now!</h4>
       <div class="buttons">
-        <ButtonComponent
+        <button-component
           :message="'Register'"
           :path="'/register'"
           :btnClass="'btn btn-dark btn-lg'"
         />
-        <ButtonComponent
+        <button-component
           :message="'Log In'"
           :path="'/login'"
           :btnClass="'btn btn-light btn-lg'"
@@ -34,13 +34,7 @@
 </template>
 
 <script>
-import ButtonComponent from "../components/ButtonComponent.vue";
-import NavBarVue from "../components/NavBar.vue";
 export default {
-  components: {
-    ButtonComponent,
-    NavBarVue,
-  },
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;

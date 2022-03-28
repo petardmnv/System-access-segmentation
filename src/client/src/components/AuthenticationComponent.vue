@@ -63,7 +63,7 @@
         </p>
       </div>
     </div>
-    <ButtonComponent
+    <button-component
       :isBtn="true"
       btnClass="btn btn-dark btn-lg"
       :message="message"
@@ -71,13 +71,9 @@
   </form>
 </template>
 <script>
-import ButtonComponent from "../components/ButtonComponent.vue";
 const validator = require("validator");
 
 export default {
-  components: {
-    ButtonComponent,
-  },
   // sending the form data to the parent component vie emit-event conception
   emits: ["export-data"],
   data() {

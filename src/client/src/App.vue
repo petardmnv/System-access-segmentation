@@ -6,15 +6,15 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <NavBar/>
-    <router-view></router-view>
+    <nav-component/>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue";
 export default {
-    components: { NavBar }
+    created() {
+      this.$store.dispatch('attemptLogIn');
+    }
 };
 </script>
 
