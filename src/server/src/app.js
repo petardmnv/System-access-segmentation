@@ -6,8 +6,9 @@ const app = express();
 
 const { globalErrorHandler } = require('./controllers/error/errorController.js');
 const AppError = require('./utils/appError.js');
-const authRouter = require('./routes/auth/auth.js');
-const modelRouter = require('./routes/model/model.js');
+const authRouter = require('./routes/auth/authRouter.js');
+const modelRouter = require('./routes/model/modelRouter.js');
+const pipelineRouter = require('./routes/pipeline/pipelineRouter.js');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -32,6 +33,7 @@ app.use(cors())
 
 app.use('/', authRouter);
 app.use('/', modelRouter);
+app.use('/', pipelineRouter);
 
 // Handler for all invalid server urls
 app.all('*', (req, res, next) => {
