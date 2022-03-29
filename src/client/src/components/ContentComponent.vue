@@ -12,7 +12,7 @@
   padding: 2rem;
   margin: 2rem auto;
   max-width: 50rem;
-  max-height: 30rem;
+  max-height: 80rem;
   text-align: center;
 }
 </style>
