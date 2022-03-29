@@ -1,12 +1,12 @@
 <template>
   <div class="model">
+    <h1>Model Overview</h1>
     <dialog-component
       :show="!!error"
       :heading="error"
       @close="closeDialog"
     ></dialog-component>
     <content-component v-if="showContent">
-      <h1>Model Overview</h1>
       <div class="field">
         <p>Name</p>
         <div class="content-canvas">
@@ -18,7 +18,7 @@
       <div class="field">
         <p>Description</p>
         <div class="content-canvas">
-          <div class="offcanvas-title">
+          <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
             <span>{{ description }}</span>
           </div>
         </div>
@@ -67,8 +67,7 @@ export default {
 </script>
 
 <style scope>
-h1 {
-  font-style: normal;
+.model h1 {
   font-weight: 900;
   font-size: 24px;
   line-height: 30px;
@@ -76,7 +75,7 @@ h1 {
 .content-canvas {
   display: flex;
   background: #eef6fb;
-  border: 5px solid #d9e4f5;
+  border: 2px solid #d9e4f5;
   border-radius: 8px;
   align-self: stretch;
   justify-content: flex-start;
@@ -86,6 +85,11 @@ h1 {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 5%;
-  margin-top: 6%;
+  margin-top: 4%;
+}
+span {
+  padding-left: 3px;
+  text-align: left!important;
+  text-align-last: left!important;
 }
 </style>
