@@ -1,15 +1,5 @@
 <template>
   <div class="content">
-    <div class="contentLogIn" v-if="isAuthenticated">
-      <div class="logout">
-        <button-component
-          @click="logout"
-          :isBtn="true"
-          message="Log Out"
-          :btnClass="'btn btn-dark btn-lg'"
-        ></button-component>
-      </div>
-    </div>
     <h1>Platform for SAP IdM data segmentation</h1>
     <h3>
       Explore our site and build your own pipelines that could save you time in
@@ -71,11 +61,5 @@ a {
 .buttons {
   flex-direction: row;
   justify-content: space-between;
-}
-.logout {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 40px;
 }
 </style>
