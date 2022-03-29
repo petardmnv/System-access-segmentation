@@ -9,6 +9,7 @@ import ContentComponent from './components/ContentComponent.vue';
 import DialogComponent from './components/DialogComponent.vue';
 import ModelComponent from './components/ModelComponent.vue';
 import NavComponent from './components/NavComponent.vue';
+import PipelineComponent from './components/PipelineComponent.vue';
 
 const app = createApp(App);
 
@@ -21,5 +22,6 @@ app.component('content-component', ContentComponent);
 app.component('dialog-component', DialogComponent);
 app.component('model-component', ModelComponent);
 app.component('nav-component', NavComponent);
+app.component('pipeline-component', PipelineComponent);
 
 app.mount('#app');
