@@ -11,16 +11,22 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Enter employee job</label>
-      <input
-        type="username"
-        class="form-control"
-        id="inputJob"
-        v-model="jopb"
-      />
+      <input type="username" class="form-control" id="inputJob" v-model="job" />
     </div>
     <div class="mb-3">
       <label for="formFile" class="form-label">Import IdM file</label>
-      <input class="form-control" type="file" id="formFile" @change="uploadFile" />
+      <input
+        class="form-control"
+        ref="file"
+        type="file"
+        id="formFile"
+        @change="uploadFile"
+      />
+    </div>
+    <div class="last-message">
+      <p v-if="!isValid">
+        Please fulfill all data fields.
+      </p>
     </div>
     <ButtonComponent
       :isBtn="true"
@@ -33,32 +39,51 @@
 <script>
 import ButtonComponent from "./ButtonComponent.vue";
 export default {
-    data() {
-        return {
-            department: null,
-            job: null,
-            file: null
-        };
+  data() {
+    return {
+      isValid: true,
+      department: null,
+      job: null,
+      file: null,
+    };
+  },
+  components: { ButtonComponent },
+  methods: {
+    validateForm() {
+      this.isValid = true;
+      if (!this.job && !this.department && !this.file) {
+        this.isValid = false;
+      }
     },
-    components: { ButtonComponent },
-    methods: {
-        submitForm() {
-            this.validateForm();
-            // Check if form is valid
-            if (!this.formIsValid) {
-                return;
-            }
+    uploadFile() {
+      this.file = this.$refs.file.files[0];
+      console.log(this.file);
+    },
+    submitForm() {
+      this.validateForm();
+      // Check if form is valid
+      if (!this.isValid) {
+        return;
+      }
 
-            const formData = {
-
-            };
-            return this.$emit("export-data", formData);
-        },
-    }
+      const formData = {
+        file: this.file,
+        department: this.department,
+        job: this.job,
+      };
+      return this.$emit("export-pipeline-data", formData);
+    },
+  },
 };
 </script>
 
 <style scope>
+p {
+  text-align: center;
+  font-size: large;
+  color: red;
+  margin-left: 2%;
+}
 form .mb-3 {
   display: flex;
   justify-content: flex-start;
