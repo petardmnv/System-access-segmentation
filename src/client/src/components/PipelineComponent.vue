@@ -51,13 +51,12 @@ export default {
   methods: {
     validateForm() {
       this.isValid = true;
-      if (!this.job && !this.department && !this.file) {
+      if (!this.job || !this.department || !this.file) {
         this.isValid = false;
       }
     },
     uploadFile() {
       this.file = this.$refs.file.files[0];
-      console.log(this.file);
     },
     submitForm() {
       this.validateForm();
@@ -77,7 +76,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 p {
   text-align: center;
   font-size: large;
