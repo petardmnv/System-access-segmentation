@@ -1,5 +1,15 @@
 <template>
   <form @submit.prevent="submitForm" class="form-data">
+        <div class="mb-3">
+      <label for="formFile" class="form-label">Import IdM file</label>
+      <input
+        class="form-control"
+        ref="file"
+        type="file"
+        id="formFile"
+        @change="uploadFile"
+      />
+    </div>
     <div class="mb-3">
       <label class="form-label">Enter employee department</label>
       <input
@@ -12,16 +22,6 @@
     <div class="mb-3">
       <label class="form-label">Enter employee job</label>
       <input type="username" class="form-control" id="inputJob" v-model="job" />
-    </div>
-    <div class="mb-3">
-      <label for="formFile" class="form-label">Import IdM file</label>
-      <input
-        class="form-control"
-        ref="file"
-        type="file"
-        id="formFile"
-        @change="uploadFile"
-      />
     </div>
     <div class="last-message">
       <p v-if="!isValid">
