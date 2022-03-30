@@ -6,7 +6,7 @@
       :heading="error"
       @close="closeDialog"
     ></dialog-component>
-    <content-component v-if="showContent">
+    <card-component v-if="showContent">
       <div class="field">
         <p>Name</p>
         <div class="content-canvas">
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-    </content-component>
+    </card-component>
   </div>
 </template>
 

@@ -69,7 +69,6 @@ export default {
         if (token && userId && tokenExpiration) {
 
             let remainingTokenTime = tokenExpiration - new Date().getTime();
-            console.log(remainingTokenTime)
             // If remaining time is less than 1 second don't log in automaticaly
             if (remainingTokenTime < 1* 1000) {
                 return;
