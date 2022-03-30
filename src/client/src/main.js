@@ -5,9 +5,9 @@ import store from './store/index.js';
 
 import AuthenticationComponent from './components/AuthenticationComponent.vue';
 import ButtonComponent from './components/ButtonComponent.vue';
-import ContentComponent from './components/ContentComponent.vue';
+import CardComponent from './components/CardComponent.vue';
 import DialogComponent from './components/DialogComponent.vue';
-import ModelComponent from './components/ModelComponent.vue';
+import ContentComponent from './components/ContentComponent.vue';
 import NavComponent from './components/NavComponent.vue';
 import PipelineComponent from './components/PipelineComponent.vue';
 
@@ -18,9 +18,9 @@ app.use(router);
 
 app.component('authentication-component', AuthenticationComponent);
 app.component('button-component', ButtonComponent);
-app.component('content-component', ContentComponent);
+app.component('card-component', CardComponent);
 app.component('dialog-component', DialogComponent);
-app.component('model-component', ModelComponent);
+app.component('content-component', ContentComponent);
 app.component('nav-component', NavComponent);
 app.component('pipeline-component', PipelineComponent);
 
