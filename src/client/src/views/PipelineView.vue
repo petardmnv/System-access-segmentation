@@ -24,8 +24,8 @@ export default {
     }
   },
   methods: {
-    getData(formData) {
-      this.sendRequest(formData);
+    async getData(formData) {
+      await this.sendRequest(formData);
     },
     async sendRequest(reqData) {
       try {
