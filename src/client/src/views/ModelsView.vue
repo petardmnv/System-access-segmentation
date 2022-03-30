@@ -1,13 +1,14 @@
 <template>
   <div>
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
-    <model-component
+    <content-component
       v-for="model in models"
       :key="model._id"
       :id="model._id"
-      :modelName="model.name"
-      :modelDescription="model.description"
-    ></model-component>
+      :title="model.name"
+      description="Description"
+      :content="[model.description]"
+    ></content-component>
   </div>
 </template>
 
