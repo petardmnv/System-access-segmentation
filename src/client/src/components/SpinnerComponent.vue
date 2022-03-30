@@ -1,18 +1,18 @@
 <template>
   <div class="spinner" v-if="isLoading">
-    <ContentComponent class="new">
+    <CardComponent class="new">
       <div
         class="spinner-border"
         style="width: 3rem; height: 3rem"
         role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-    </ContentComponent>
+    </CardComponent>
   </div>
 </template>
 
 <script>
-import ContentComponent from "./ContentComponent.vue";
+import CardComponent from "./CardComponent.vue";
 export default {
   props: {
     isLoading: {
@@ -20,7 +20,7 @@ export default {
       required: true,
     },
   },
-  components: { ContentComponent },
+  components: { CardComponent },
 };
 </script>
 
