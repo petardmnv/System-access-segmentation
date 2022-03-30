@@ -1,4 +1,5 @@
 const { axiosInstance } = require('../../../service/setAxios.js');
+const FormData = require('form-data');
 
 export default {
     async getResults(context) {
@@ -14,11 +15,12 @@ export default {
     },
     async sendPipelineData(context, payload) {
         try {
-            const response = await axiosInstance.post(`http://localhost:8081/pipeline`, {
-                department: payload.department,
-                job: payload.job,
-                file: payload.file
-            });
+            const form_data  = new FormData();
+            form_data.append("file", payload.file);
+            form_data.append("job", payload.job);
+            form_data.append("department", payload.department);
+            const response = await axiosInstance.post(`http://localhost:8081/pipeline`, form_data);
+
             context.commit("setPrivileges", {
                 privileges: response.data.privileges
             });
