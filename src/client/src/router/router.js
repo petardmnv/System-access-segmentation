@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
+import NotFound from '../views/NotFound.vue';
 import LogInView from '../views/LogInView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import PipelineView from '../views/PipelineView.vue';
@@ -18,10 +18,6 @@ const routes = [
   {
     path: '/home',
     component: HomeView
-  },
-  {
-    path: '/about',
-    component: AboutView
   },
   {
     path: '/login',
@@ -62,28 +58,11 @@ const routes = [
     props: true,
     component: ResultView,
     meta: { needAuthentication: true }
-  },/*,
-  {
-    path: 'data/:id',
-    props: true,
-    component: null
   },
   {
-    path: 'pipelines/:id',
-    component: null,
-    props: true,
-    //add "children" route in pipelines/:id
-    children:[
-      {
-        path: 'run',
-        component: null
-      },
-      {
-        path: 'result',
-        component: null
-      }
-    ]
-  }*/
+    path: "/:catchAll(.*)",
+    component: NotFound
+  }
 ];
 
 const router = createRouter({
