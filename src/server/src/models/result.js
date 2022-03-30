@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 // Create model which has its data schema for Pipelines Result information in the site
 const resultSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     role: {
         type: String,
         required: true,
