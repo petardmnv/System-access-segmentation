@@ -2,12 +2,13 @@
   <div>
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
     <content-component
-      v-for="model in models"
-      :key="model._id"
-      :id="model._id"
-      :title="model.name"
-      description="Description"
-      :content="[model.description]"
+      v-for="result in results"
+      :key="result._id"
+      :id="result._id"
+      :title="result.role"
+      description="Privileges"
+      :content="result.privileges"
+      contentType="privileges"
     ></content-component>
   </div>
 </template>
@@ -16,18 +17,18 @@
 export default {
   data() {
     return {
-      models: null,
+      results: null,
       error: null,
     };
   },
   created() {
-    this.loadModels();
+    this.loadResults();
   },
   methods: {
-    async loadModels() {
+    async loadResults() {
       try {
-        await this.$store.dispatch("models/getModels");
-        this.models = this.$store.getters["models/getModels"];
+        await this.$store.dispatch("results/getResults");
+        this.results = this.$store.getters["results/getResults"];
       } catch (error) {
         this.error = error.message || "Something went wrong";
       }

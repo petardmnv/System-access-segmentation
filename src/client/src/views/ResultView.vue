@@ -8,18 +8,18 @@
     ></dialog-component>
     <card-component v-if="showContent">
       <div class="field">
-        <p>Name</p>
+        <p>Role Name</p>
         <div class="content-canvas">
-          <h5 class="offcanvas-title" id="offcanvasLabel">
-            <span>{{ title }}</span>
+          <h5 class="offcanvas-role" id="offcanvasLabel">
+            <span>{{ role }}</span>
           </h5>
         </div>
       </div>
       <div class="field">
-        <p>Description</p>
+        <p>Privileges</p>
         <div class="content-canvas">
           <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
-            <span>{{ description }}</span>
+            <span>{{ privileges }}</span>
           </div>
         </div>
       </div>
@@ -31,26 +31,19 @@
 export default {
   data() {
     return {
-      title: null,
-      description: null,
+      role: null,
+      privileges: null,
       error: null,
     };
   },
   created() {
-    this.getModel();
+    this.getResult();
   },
   methods: {
-    async getModel() {
-      try {
-        await this.$store.dispatch("models/getModel", {
-          id: this.$route.params.id,
-        });
-      } catch (error) {
-        this.error = error.message || "Something went wrong";
-      }
-      let model = this.$store.getters["models/getCurrentModel"];
-      this.title = model.name;
-      this.description = model.description;
+    async getResult() {
+      let result = this.$store.getters["results/getResultById"](this.$route.params.id)[0];
+      this.role = result.role;
+      this.privileges = result.privileges;
     },
     closeDialog() {
       this.error = null;

@@ -6,6 +6,9 @@ import RegisterView from '../views/RegisterView.vue';
 import PipelineView from '../views/PipelineView.vue';
 import ModelsView from '../views/ModelsView.vue';
 import ModelView from '../views/ModelView.vue';
+import SaveResultView from '../views/SaveResultView.vue';
+import ResultsView from '../views/ResultsView.vue';
+import ResultView from '../views/ResultView.vue';
 import store from '@/store';
 
 // set up routes tha my application needs: home, login, register, data, pipelines, models and their child routes
@@ -29,8 +32,8 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/data',
-    component: AboutView,
+    path: '/results',
+    component: ResultsView,
     meta: { needAuthentication: true }
   },
   {
@@ -46,8 +49,20 @@ const routes = [
   {
     path: '/models/:id',
     props: true,
-    component: ModelView
-  }/*,
+    component: ModelView,
+    meta: { needAuthentication: true }
+  },
+  {
+    path: '/pipelines/result',
+    component: SaveResultView,
+    meta: { needAuthentication: true }
+  },
+  {
+    path: '/results/:id',
+    props: true,
+    component: ResultView,
+    meta: { needAuthentication: true }
+  },/*,
   {
     path: 'data/:id',
     props: true,
