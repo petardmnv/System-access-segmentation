@@ -2,7 +2,7 @@
   <div class="navigation">
     <nav v-if="isAuthenticated" class="nav justify-content-center">
       <router-link class="nav-link" to="/home">Home</router-link>
-      <router-link class="nav-link" to="/pipelines">Run Pipeline</router-link>
+      <router-link class="nav-link" to="/pipelines">Run</router-link>
       <router-link class="nav-link" to="/results">Results</router-link>
       <router-link class="nav-link" to="/models">Models</router-link>
     </nav>

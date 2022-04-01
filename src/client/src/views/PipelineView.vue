@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div>
+    <div v-if="!isLoading">
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
     <h1>Run Pipeline</h1>
     <card-component>
@@ -8,8 +9,11 @@
       </h3>
       <pipeline-component @export-pipeline-data="getData"/>
     </card-component>
+  </div>
+  <div v-else>
     <SpinnerComponent :isLoading="isLoading" class="loading"></SpinnerComponent>
   </div>
+</div>
 </template>
 
 <script>
