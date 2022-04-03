@@ -17,8 +17,17 @@ export default {
         try {
             const response = await axiosInstance.get(`http://localhost:8081/result`);
             // reposnose is ok 
-            return response.data.results.filter(res => res._id === payload.id)[0];
+            let result = response.data.results.filter(res => res._id === payload.id)[0];
+            // If there is no result found then throw error
+            if (!result) {
+                throw new Error(`No result with provided id - ${payload.id}`);
+            }else {
+                return result;
+            }
         } catch (error) {
+            if (error.message) {
+                throw new Error(error.message);
+            }
             throw new Error(error.response.data.message || "An error occured while sending the request!");
         }
     },
