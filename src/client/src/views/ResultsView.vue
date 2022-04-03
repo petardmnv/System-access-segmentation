@@ -21,7 +21,7 @@ export default {
       error: null,
     };
   },
-  mounted() {
+  created() {
     this.loadResults();
   },
   methods: {
