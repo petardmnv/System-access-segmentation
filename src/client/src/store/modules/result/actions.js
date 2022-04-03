@@ -13,6 +13,15 @@ export default {
             throw new Error(error.response.data.message || "An error occured while sending the request!");
         }
     },
+    async getResult(context, payload) {
+        try {
+            const response = await axiosInstance.get(`http://localhost:8081/result`);
+            // reposnose is ok 
+            return response.data.results.filter(res => res._id === payload.id)[0];
+        } catch (error) {
+            throw new Error(error.response.data.message || "An error occured while sending the request!");
+        }
+    },
     async sendPipelineData(context, payload) {
         try {
             const form_data  = new FormData();
