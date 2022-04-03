@@ -10,15 +10,13 @@
 </template>
 
 <script>
-import CardComponent from "./CardComponent.vue";
 export default {
   props: {
     isLoading: {
       type: Boolean,
       required: true,
     },
-  },
-  components: { CardComponent },
+  }
 };
 </script>
 

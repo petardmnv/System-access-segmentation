@@ -55,7 +55,6 @@ const routes = [
   },
   {
     path: '/results/:id',
-    props: true,
     component: ResultView,
     meta: { needAuthentication: true }
   },

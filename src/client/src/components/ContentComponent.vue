@@ -5,22 +5,25 @@
         <div class="see-info">
           <ButtonComponent
             :message="'Info'"
-            :path="getModelLink"
+            :path="getLink"
             :class="'btn btn-light btn-sm'"
             class="info-button"
           />
         </div>
         <h2>{{ title }}</h2>
       </header>
-      <h6>
-        {{ description }}
-      </h6>
-      <div v-if="showBadge">
-        <BadgeComponent class="content-desc" :type="contentType" :title="contentField"/>
+      <div class="privileges">
+        <h6>{{ description }}:</h6>
+        <BadgeComponent
+          v-if="showBadge"
+          class="badge-class"
+          :type="contentType"
+          :title="contentField"
+        />
+        <p v-else>
+          {{ contentField }}
+        </p>
       </div>
-      <p v-else>
-        {{ contentField }}
-      </p>
     </CardComponent>
     <router-view></router-view>
   </div>
@@ -56,18 +59,18 @@ export default {
   components: { CardComponent, ButtonComponent, BadgeComponent },
   computed: {
     // Create user for model
-    getModelLink() {
+    getLink() {
       return this.$route.path + "/" + this.id;
     },
     contentField() {
-      return this.content.join(" ");
+      return this.content.join(", ");
     },
-    showBadge(){
-      if (this.contentType === 'none') {
-        return false
+    showBadge() {
+      if (this.contentType === "none") {
+        return false;
       }
       return true;
-    } 
+    },
   },
 };
 </script>
@@ -77,13 +80,14 @@ h6 {
   text-align: start;
 }
 p {
-  margin-top: 2rem;
+  margin-top: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 header {
   position: relative;
+  justify-content: start;
   align-content: space-between;
 }
 div .see-info {
@@ -92,5 +96,12 @@ div .see-info {
 header .see-info {
   position: absolute;
   right: 0;
+}
+.privileges {
+  margin-bottom: 20px;
+}
+.badge-class {
+  display: flexbox;
+  float: left;
 }
 </style>

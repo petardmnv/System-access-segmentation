@@ -91,10 +91,12 @@ form .mb-3 {
   margin-bottom: 2rem !important;
 }
 .form-data .form-control {
+  display: flex;
   background: #eef6fb;
-  border: 1px solid #d9e4f5;
-  box-sizing: border-box;
-  border-radius: 70px;
+  border: 2px solid #d9e4f5;
+  border-radius: 8px;
+  align-self: stretch;
+  justify-content: flex-start;
 }
 .form-data .form-control.invalid {
   border: 1px solid red;

@@ -1,14 +1,19 @@
 <template>
   <div>
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
+    <h1>Pipeline Model User Priviledges Recommendation</h1>
     <card-component>
-      <h1>Pipeline Model User Priviledges Recommendation</h1>
       <div class="privileges">
-        <label for="privileges">
-          Choose which privileges your employee will need</label
-        >
-        <!-- list of privileges -->
+        <h4 for="privileges">
+          Choose which privileges your employee will need
+        </h4>
+        <label class="form-label">
+          Privileges
+        </label>
         <div class="form-check" v-for="priv in privileges" :key="priv">
+          <label class="form-check-label" for="flexCheckChecked">
+            {{ priv }}
+          </label>
           <input
             class="form-check-input"
             type="checkbox"
@@ -16,14 +21,18 @@
             id="flexCheckChecked"
             v-model="privilegesList"
           />
-          <label class="form-check-label" for="flexCheckChecked">
-            {{ priv }}
-          </label>
         </div>
       </div>
-      <div class="role">
-        <label for="role"> Set role name for choosen privileges</label>
-        <input type="text" v-model="roleName" />
+      <div class="mb-3">
+        <label class="form-label">
+          Set role name for the choosen privileges
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputRole"
+          v-model="roleName"
+        />
       </div>
       <button-component
         @click="saveData"
@@ -84,6 +93,31 @@ h1 {
   line-height: 30px;
 }
 .privileges .role {
+  display: flex;
+  background: #eef6fb;
+  border: 2px solid #d9e4f5;
+  border-radius: 8px;
+  align-self: stretch;
+  justify-content: flex-start;
+}
+.form-check {
+  display: inline;
+  float: left;
+  clear: left;
+}
+.form-check-input {
+  text-align: left;
+}
+.form-check-label {
+  text-align: left;
+}
+.form-label {
+  margin-top: 13px!important;
+  margin-bottom: 3px!important;
+  float: left;
+  clear: left;
+}
+.form-control {
   display: flex;
   background: #eef6fb;
   border: 2px solid #d9e4f5;
