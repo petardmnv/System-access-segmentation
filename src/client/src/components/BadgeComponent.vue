@@ -16,17 +16,11 @@ export default {
 </script>
 
 <style scoped>
-span {
-    font-size: 700;
-}
-span .privileges {
-  background-color: #eef6fb;
-  color: rgb(0, 0, 0);
-}
 .badge {
   background-color: #eef6fb;
+  font-size: small;
   color: #252525;
-  border-radius: 30px;
+  border-radius: 8px;
   padding: 0.5rem 1.5rem;
   display: inline-block;
   margin-right: 0.5rem;

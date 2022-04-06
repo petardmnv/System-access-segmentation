@@ -1,6 +1,7 @@
 const Result = require('../../models/result.js');
 const multer = require('multer');
 const AppError = require('../../utils/appError.js');
+const axios = require('axios')
 
 const storage = multer.diskStorage({
     // req -  current request state, file - current uploaded file, 
@@ -40,15 +41,32 @@ const upload = multer({
 
 module.exports = {
     uploadFile: upload.single('file'),
-    runPipeline(req, res) {
-        // Provide data to model functions
+    async runPipeline(req, res, next) {
         let { department, job, filename } = req.body;
-        // runModel(filename, departmen, job);
-        // Simulate model result 
-        let result = ['QLOOR1', 'RST23', '23RTY4', 'QTRL721', 'RTWE34', 'RS6', 'ASDF', 'PRIV1', 'PRIV2', 'PRIV3'];
-        setTimeout(() => {
-            res.status(200).send({ privileges: result });
-        }, 1 * 1000);
+        // Set data to ml python server and get results
+        // set up data to be posted to pyrhon server
+        let data = JSON.stringify({
+            "job": job,
+            "department": department,
+            "filename": filename
+          });
+          // Set up axios configuration
+          let config = {
+            method: 'post',
+            url: 'http://127.0.0.1:8082/run',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+          };
+          let response;
+          try {
+            response  = await axios(config);
+            let result = response['data']['result']
+            res.status(200).send({ privileges: result })
+          } catch (error) {
+                return next(new AppError("You provided error data in the form", 404));
+          };
     },
     async saveResult(req, res, next) {
         try {
@@ -65,7 +83,7 @@ module.exports = {
             });
 
             if (!result) {
-                return next(new AppError("Error while caving result.", 500));
+                return next(new AppError("Error while saving result.", 500));
             }
             res.sendStatus(200);
         } catch (error) {

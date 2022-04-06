@@ -4,6 +4,7 @@ let token = localStorage.getItem("token");
 
 exports.axiosInstance = axios.create({
     headers: {
-      Authorization : `Bearer ${token}`
+      'Accept': 'application/json',
+      'Authorization': `Bearer: ${token}`,
     }
 });

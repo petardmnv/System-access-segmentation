@@ -1,6 +1,6 @@
 <template>
   <div class="model">
-    <h1>Model Overview</h1>
+    <h1>Result Overview</h1>
     <dialog-component
       :show="!!error"
       :heading="error"
@@ -8,20 +8,18 @@
     ></dialog-component>
     <card-component v-if="showContent">
       <div class="field">
-        <p>Role Name</p>
-        <div class="content-canvas">
+        <h4>Role Name:</h4>
           <h5 class="offcanvas-role" id="offcanvasLabel">
             <span>{{ role }}</span>
           </h5>
-        </div>
       </div>
       <div class="field">
-        <p>Privileges</p>
-        <div class="content-canvas">
+        <h4>Privileges:</h4>
           <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
-            <span>{{ privileges }}</span>
+            <ul>
+              <li v-for="p in privileges" :key="p"> {{ p }} </li>
+            </ul>
           </div>
-        </div>
       </div>
     </card-component>
   </div>
@@ -41,9 +39,13 @@ export default {
   },
   methods: {
     async getResult() {
-      let result = this.$store.getters["results/getResultById"](this.$route.params.id)[0];
-      this.role = result.role;
-      this.privileges = result.privileges;
+      try {
+        let result = await this.$store.dispatch("results/getResult", {id: this.$route.params.id});
+        this.role = result.role;
+        this.privileges = result.privileges;
+      } catch (error) {
+        this.error = error.message || "Something went wrong";
+      }
     },
     closeDialog() {
       this.error = null;
@@ -65,24 +67,22 @@ export default {
   font-size: 24px;
   line-height: 30px;
 }
-.content-canvas {
-  display: flex;
-  background: #eef6fb;
-  border: 2px solid #d9e4f5;
-  border-radius: 8px;
-  align-self: stretch;
-  justify-content: flex-start;
-}
 .field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 5%;
   margin-top: 4%;
 }
 span {
-  padding-left: 3px;
   text-align: left!important;
   text-align-last: left!important;
+}
+ul {
+  list-style-type: disc;
+}
+li {
+  text-align: left;
+    float: left;
+    width: 50%;
 }
 </style>

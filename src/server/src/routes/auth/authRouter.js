@@ -8,8 +8,4 @@ router.post('/login', login);
 
 router.post('/register', register);
 
-router.get('/pipeline', protectRoute, (req, res) => {
-    res.status(200).send(req.user);
-});
-
 module.exports = router;

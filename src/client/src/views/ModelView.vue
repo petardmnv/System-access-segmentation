@@ -9,19 +9,15 @@
     <card-component v-if="showContent">
       <div class="field">
         <p>Name</p>
-        <div class="content-canvas">
           <h5 class="offcanvas-title" id="offcanvasLabel">
             <span>{{ title }}</span>
           </h5>
-        </div>
       </div>
       <div class="field">
         <p>Description</p>
-        <div class="content-canvas">
           <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
             <span>{{ description }}</span>
           </div>
-        </div>
       </div>
     </card-component>
   </div>
@@ -66,7 +62,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .model h1 {
   font-weight: 900;
   font-size: 24px;
@@ -88,8 +84,10 @@ export default {
   margin-top: 4%;
 }
 span {
-  padding-left: 3px;
   text-align: left!important;
   text-align-last: left!important;
+}
+div .offcanvas-body{
+  text-align: left;
 }
 </style>

@@ -1,5 +1,15 @@
 <template>
   <form @submit.prevent="submitForm" class="form-data">
+        <div class="mb-3">
+      <label for="formFile" class="form-label">Import IdM file</label>
+      <input
+        class="form-control"
+        ref="file"
+        type="file"
+        id="formFile"
+        @change="uploadFile"
+      />
+    </div>
     <div class="mb-3">
       <label class="form-label">Enter employee department</label>
       <input
@@ -12,16 +22,6 @@
     <div class="mb-3">
       <label class="form-label">Enter employee job</label>
       <input type="username" class="form-control" id="inputJob" v-model="job" />
-    </div>
-    <div class="mb-3">
-      <label for="formFile" class="form-label">Import IdM file</label>
-      <input
-        class="form-control"
-        ref="file"
-        type="file"
-        id="formFile"
-        @change="uploadFile"
-      />
     </div>
     <div class="last-message">
       <p v-if="!isValid">
@@ -91,10 +91,12 @@ form .mb-3 {
   margin-bottom: 2rem !important;
 }
 .form-data .form-control {
+  display: flex;
   background: #eef6fb;
-  border: 1px solid #d9e4f5;
-  box-sizing: border-box;
-  border-radius: 70px;
+  border: 2px solid #d9e4f5;
+  border-radius: 8px;
+  align-self: stretch;
+  justify-content: flex-start;
 }
 .form-data .form-control.invalid {
   border: 1px solid red;
