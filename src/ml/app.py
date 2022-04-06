@@ -61,13 +61,17 @@ def remove_file(filepath):
 
 # Execute all function and return razult final result to run()
 def get_result(job, department, filename):
-        filepath = '../server/public/data/'+str(filename)
+    filepath = '../server/public/data/'+str(filename)
+    try:
         data = load_file(filepath)
         set_columns(data)
         data = separate_privileges_column(data, "privileges_data")
         result = get_best_privileges_on_average_distribution(data, job, department)
-        remove_file(filepath)
         return result
+    except Exception as e:
+        raise e
+    finally:
+        remove_file(filepath)
 
 
 @app.route('/run', methods = ['POST'])
@@ -81,6 +85,7 @@ def run():
             result = get_result(job, department, filename)
             return jsonify({'result': result}), 200
         except Exception as e:
+            print(e)
             return jsonify({'message': str(e)}), 404
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8082, debug=True)
