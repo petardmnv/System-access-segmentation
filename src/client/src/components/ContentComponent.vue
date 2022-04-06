@@ -14,13 +14,7 @@
       </header>
       <div class="privileges">
         <h6>{{ description }}:</h6>
-        <BadgeComponent
-          v-if="showBadge"
-          class="badge-class"
-          :type="contentType"
-          :title="contentField"
-        />
-        <p v-else>
+        <p>
           {{ contentField }}
         </p>
       </div>
@@ -81,6 +75,7 @@ h6 {
 }
 p {
   margin-top: 1rem;
+  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
