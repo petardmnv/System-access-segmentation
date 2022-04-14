@@ -1,5 +1,5 @@
-const { name, pwd } = require('../config/db.js');
-const authString = "mongodb+srv://DBADMIN:" + pwd + "@cluster0.ns8pm.mongodb.net/" + name + "?retryWrites=true&w=majority";
+const { uName, pwd, dbName } = require('../config/db.js');
+const authString = "mongodb+srv://" + uName + ":" + pwd + "@cluster0.ns8pm.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
 
 async function createConnection(mongoose){
   try {
