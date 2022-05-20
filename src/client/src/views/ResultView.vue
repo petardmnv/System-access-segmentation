@@ -7,19 +7,25 @@
       @close="closeDialog"
     ></dialog-component>
     <card-component v-if="showContent">
-      <div class="field">
-        <h4>Role Name:</h4>
+      <div class="content-wrapper">
+        <div class="field">
+          <p><b>Role Name</b></p>
           <h5 class="offcanvas-role" id="offcanvasLabel">
             <span>{{ role }}</span>
           </h5>
-      </div>
-      <div class="field">
-        <h4>Privileges:</h4>
-          <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
+        </div>
+        <div class="field">
+          <p><b>Privileges</b></p>
+          <div
+            class="offcanvas-body"
+            tabindex="-1"
+            aria-labelledby="offcanvasExampleLabel"
+          >
             <ul>
-              <li v-for="p in privileges" :key="p"> {{ p }} </li>
+              <li v-for="p in privileges" :key="p">{{ p }}</li>
             </ul>
           </div>
+        </div>
       </div>
     </card-component>
   </div>
@@ -40,7 +46,9 @@ export default {
   methods: {
     async getResult() {
       try {
-        let result = await this.$store.dispatch("results/getResult", {id: this.$route.params.id});
+        let result = await this.$store.dispatch("results/getResult", {
+          id: this.$route.params.id,
+        });
         this.role = result.role;
         this.privileges = result.privileges;
       } catch (error) {
@@ -61,28 +69,30 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .model h1 {
   font-weight: 900;
   font-size: 24px;
   line-height: 30px;
 }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 4%;
-}
-span {
-  text-align: left!important;
-  text-align-last: left!important;
+  margin-bottom: 5%;
 }
 ul {
   list-style-type: disc;
+  display: flex;
+  flex-direction: column;
 }
+
 li {
   text-align: left;
-    float: left;
-    width: 50%;
+  float: left;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h1 {
   padding-top: 30px;
   color: black;

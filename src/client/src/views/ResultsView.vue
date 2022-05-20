@@ -1,6 +1,7 @@
 <template>
   <div>
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
+    <h1>Results List</h1>
     <content-component
       v-for="result in results"
       :key="result._id"

@@ -59,7 +59,8 @@ a {
   color: rgb(255, 255, 255);
 }
 .buttons {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 </style>
