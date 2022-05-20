@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm" class="form-data">
-        <div class="mb-3">
+    <div class="mb-3">
       <label for="formFile" class="form-label">Import IdM file</label>
       <input
         class="form-control"
@@ -24,9 +24,7 @@
       <input type="username" class="form-control" id="inputJob" v-model="job" />
     </div>
     <div class="last-message">
-      <p v-if="!isValid">
-        Please fulfill all data fields.
-      </p>
+      <p v-if="!isValid">Please fulfill all data fields.</p>
     </div>
     <ButtonComponent
       :isBtn="true"

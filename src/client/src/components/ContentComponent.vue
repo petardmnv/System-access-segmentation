@@ -1,23 +1,15 @@
 <template>
   <div class="model">
     <CardComponent>
-      <header>
-        <div class="see-info">
-          <ButtonComponent
-            :message="'Info'"
-            :path="getLink"
-            :class="'btn btn-light btn-sm'"
-            class="info-button"
-          />
-        </div>
-        <h2>{{ title }}</h2>
-      </header>
-      <div class="privileges">
-        <h6>{{ description }}:</h6>
-        <p>
-          {{ contentField }}
-        </p>
+      <div class="see-info">
+        <ButtonComponent
+          :message="'Info'"
+          :path="getLink"
+          :class="'btn btn-light btn-sm'"
+          class="info-button"
+        />
       </div>
+      <h2>{{ title }}</h2>
     </CardComponent>
     <router-view></router-view>
   </div>
@@ -56,9 +48,6 @@ export default {
     getLink() {
       return this.$route.path + "/" + this.id;
     },
-    contentField() {
-      return this.content.join(", ");
-    },
     showBadge() {
       if (this.contentType === "none") {
         return false;
@@ -70,6 +59,12 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  display: flex;
+  margin: auto;
+  padding: 2px;
+  text-align: center;
+}
 h6 {
   text-align: start;
 }
@@ -80,17 +75,13 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-header {
-  position: relative;
-  justify-content: start;
-  align-content: space-between;
-}
 div .see-info {
-  display: inline-block;
+  display: flex;
 }
-header .see-info {
+.see-info {
   position: absolute;
-  right: 0;
+  top: 0.1em;
+  right: 4px;
 }
 .privileges {
   margin-bottom: 20px;

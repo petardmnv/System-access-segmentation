@@ -1,46 +1,50 @@
 <template>
   <div>
     <dialog-component :show="!!error" :heading="error" @close="closeDialog" />
-    <h1>Pipeline Model User Priviledges Recommendation</h1>
-    <card-component>
-      <div class="privileges">
-        <h4 for="privileges">
-          Choose which privileges your employee will need
-        </h4>
-        <label class="form-label">
-          Privileges
-        </label>
-        <div class="form-check" v-for="priv in privileges" :key="priv">
-          <label class="form-check-label" for="flexCheckChecked">
-            {{ priv }}
+    <h1>Priviledges Recommendation</h1>
+    <div class="contentContainer">
+      <div class="content">
+        <div class="privileges">
+          <h4 for="privileges">
+            Choose which privileges your employee will need
+          </h4>
+          <h5 class="form-label">Privileges:</h5>
+
+          <div class="form-check" v-for="priv in privileges" :key="priv">
+            <label class="form-check-label" for="flexCheckChecked">
+              {{ priv }}
+            </label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :value="priv"
+              id="flexCheckChecked"
+              v-model="privilegesList"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            Set role name for the choosen privileges
           </label>
           <input
-            class="form-check-input"
-            type="checkbox"
-            :value="priv"
-            id="flexCheckChecked"
-            v-model="privilegesList"
+            type="text"
+            class="form-control"
+            id="inputRole"
+            v-model="roleName"
           />
         </div>
+        <div class="btn-display">
+          <button-component
+            @click="saveData"
+            :isBtn="true"
+            message="Save"
+            :btnClass="'btn btn-dark btn-lg'"
+          >
+          </button-component>
+        </div>
       </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Set role name for the choosen privileges
-        </label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputRole"
-          v-model="roleName"
-        />
-      </div>
-      <button-component
-        @click="saveData"
-        :isBtn="true"
-        message="Save"
-        :btnClass="'btn btn-dark btn-lg'"
-      ></button-component>
-    </card-component>
+    </div>
   </div>
 </template>
 
@@ -87,11 +91,12 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .privileges .role {
   display: flex;
   background: #eef6fb;
@@ -100,6 +105,7 @@ h1 {
   align-self: stretch;
   justify-content: flex-start;
 }
+
 .form-check {
   display: inline;
   float: left;
@@ -108,15 +114,18 @@ h1 {
 .form-check-input {
   text-align: left;
 }
+
 .form-check-label {
   text-align: left;
 }
+
 .form-label {
-  margin-top: 13px!important;
-  margin-bottom: 3px!important;
+  margin-top: 13px !important;
+  margin-bottom: 3px !important;
   float: left;
   clear: left;
 }
+
 .form-control {
   display: flex;
   background: #eef6fb;
@@ -124,5 +133,18 @@ h1 {
   border-radius: 8px;
   align-self: stretch;
   justify-content: flex-start;
+}
+.contentContainer {
+  display: flex;
+  border-radius: 12px;
+  position: relative;
+  justify-content: center;
+  border: 2px solid black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 2.3rem;
+  margin: 2rem auto;
+  max-width: 50rem;
+  max-height: 80rem;
+  text-align: center;
 }
 </style>

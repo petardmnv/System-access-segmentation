@@ -7,17 +7,23 @@
       @close="closeDialog"
     ></dialog-component>
     <card-component v-if="showContent">
-      <div class="field">
-        <p>Name</p>
+      <div class="content-wrapper">
+        <div class="field">
+          <p><b>Name</b></p>
           <h5 class="offcanvas-title" id="offcanvasLabel">
             <span>{{ title }}</span>
           </h5>
-      </div>
-      <div class="field">
-        <p>Description</p>
-          <div class="offcanvas-body" tabindex="-1" aria-labelledby="offcanvasExampleLabel">
+        </div>
+        <div class="field">
+          <p><b>Description</b></p>
+          <div
+            class="offcanvas-body"
+            tabindex="-1"
+            aria-labelledby="offcanvasExampleLabel"
+          >
             <span>{{ description }}</span>
           </div>
+        </div>
       </div>
     </card-component>
   </div>
@@ -68,6 +74,9 @@ export default {
   font-size: 24px;
   line-height: 30px;
 }
+p {
+  margin: 2px;
+}
 .content-canvas {
   display: flex;
   background: #eef6fb;
@@ -76,18 +85,24 @@ export default {
   align-self: stretch;
   justify-content: flex-start;
 }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-evenly;
   margin-bottom: 5%;
-  margin-top: 4%;
 }
 span {
-  text-align: left!important;
-  text-align-last: left!important;
+  text-align: left !important;
+  text-align-last: left !important;
 }
-div .offcanvas-body{
+div .offcanvas-body {
   text-align: left;
+  padding: 0 0 !important;
 }
 </style>

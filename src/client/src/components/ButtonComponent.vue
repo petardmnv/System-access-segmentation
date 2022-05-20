@@ -34,27 +34,67 @@ export default {
 
 <style scoped>
 .btn.btn-light.btn-lg {
-  height: 5vh;
-  width: 20vh;
-  border-width: 2px;
-  border-color: black;
+  backface-visibility: hidden;
+  background-color: white;
   color: black;
-  border-radius: 70px;
-  text-align: center;
+  border-radius: 20px;
+  border-width: 3px;
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-sizing: border-box;
+  cursor: pointer;
   font-weight: 700;
+  height: 44px;
+  margin: 12px 0 0;
+  outline: none;
+  border: solid 1px black;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: all 0.2s, box-shadow 0.08s ease-in;
+  max-width: 150px;
+  width: 130px;
   margin-left: 2ch;
   margin-right: 2ch;
 }
+
+.btn.btn-light.btn-lg:focus {
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}
+
 .btn.btn-dark.btn-lg {
-  height: 5vh;
-  width: 20vh;
+  backface-visibility: hidden;
   background-color: rgb(0, 0, 0);
-  border-width: 2px;
-  border-radius: 70px;
-  text-align: center;
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+  border-width: 3px;
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-sizing: border-box;
+  cursor: pointer;
   font-weight: 700;
+  height: 44px;
+  margin: 12px 0 0;
+  outline: none;
+  border: solid 1px black;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: all 0.2s, box-shadow 0.08s ease-in;
+  max-width: 150px;
+  width: 130px;
   margin-left: 2ch;
   margin-right: 2ch;
+}
+
+.btn.btn-dark.btn-lg:focus {
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 151, 211, 0.3) 0 0 0 4px;
 }
 
 .btn.btn-light.btn-sm {
