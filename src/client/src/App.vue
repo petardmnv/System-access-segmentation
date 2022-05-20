@@ -25,4 +25,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+h1 {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 5rem;
+}
 </style>
