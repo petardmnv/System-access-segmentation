@@ -63,7 +63,7 @@ def stratify_data(data):
 	data.drop('times_occured', axis=1, inplace=True)
 
 	# Split data into two parts 4/6, by stratifing privileges
-	X_train, X_test = train_test_split(data, train_size=0.1, shuffle=True, stratify=data.privileges_data) 
+	X_train, X_test = train_test_split(data, train_size=0.2, shuffle=True, stratify=data.privileges_data) 
 	data = X_train
 	
 	return data.reset_index(drop=True)
