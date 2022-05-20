@@ -6,7 +6,10 @@
       <router-link class="nav-link" to="/results">Results</router-link>
       <router-link class="nav-link" to="/models">Models</router-link>
     </nav>
-    <div v-if="isAuthenticated" class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div
+      v-if="isAuthenticated"
+      class="d-grid gap-2 d-md-flex justify-content-md-end"
+    >
       <button-component
         @click="logout"
         :isBtn="true"
@@ -55,19 +58,17 @@ nav.nav.justify-content-center a.active.router-link-exact-active.nav-link {
   display: flex;
   justify-content: center;
 }
-div .d-grid.gap-2.d-md-flex.justify-content-md-end{
-  display: inline-block!important;
+div .d-grid.gap-2.d-md-flex.justify-content-md-end {
+  display: inline-block !important;
   position: absolute;
   margin-left: 50px;
 }
 div .d-grid.gap-2.d-md-flex.justify-content-md-end .btn.btn-dark.btn-lg {
-  height: 4vh;
-  width: 13vh;
   background-color: rgb(0, 0, 0);
   border-width: 2px;
   border-radius: 70px;
   text-align: center;
-  font-weight: 700;
+  font-size: larger;
   line-height: normal;
   margin-left: 0;
   margin-right: 0;
