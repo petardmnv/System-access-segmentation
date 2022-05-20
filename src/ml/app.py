@@ -63,7 +63,7 @@ def stratify_data(data):
 	data.drop('times_occured', axis=1, inplace=True)
 
 	# Split data into two parts 4/6, by stratifing privileges
-	X_train, X_test = train_test_split(data, train_size=0.4, shuffle=True, stratify=data.privileges_data) 
+	X_train, X_test = train_test_split(data, train_size=0.1, shuffle=True, stratify=data.privileges_data) 
 	data = X_train
 	
 	return data.reset_index(drop=True)
@@ -122,7 +122,7 @@ def get_best_privileges(user_data, job, department):
 		user_privs_data['user_id'] = user_data.user_id
 
 		# Initialize Agglomerative clustering instanse from sklearn
-		agg_clustering = AgglomerativeClustering(n_clusters=None, compute_full_tree=True, distance_threshold=15)
+		agg_clustering = AgglomerativeClustering(n_clusters=None, compute_full_tree=True, distance_threshold=11)
 
 		# Fit the data without user_id
 		fit_data = agg_clustering.fit(user_privs_data.drop('user_id', axis=1))
@@ -204,9 +204,13 @@ def get_result(job, department, filename):
 	filepath = '../server/public/data/'+str(filename)
 	try:
 		data = load_file(filepath)
+		print(data)
 		data = stratify_data(data)
+		print(data)
 		data = normalize_data(data)
+		print(data)
 		result = get_best_privileges(data, job, department)
+		print(result)
 		return result
 	except Exception as e:
 		raise e
@@ -222,8 +226,8 @@ def run():
         department = content['department']
         filename = content['filename']
         try:
-            result = get_result(job, department, filename)
-            return jsonify({'result': result}), 200
+		        result = get_result(job, department, filename)
+		        return jsonify({'result': result}), 200
         except Exception as e:
             print(e)
             return jsonify({'message': str(e)}), 404
