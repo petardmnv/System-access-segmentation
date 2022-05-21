@@ -15,7 +15,6 @@
   padding: 2.3rem;
   margin: 2rem auto;
   max-width: 50rem;
-  max-height: 80rem;
   text-align: center;
 }
 </style>

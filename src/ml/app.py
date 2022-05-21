@@ -63,7 +63,7 @@ def stratify_data(data):
 	data.drop('times_occured', axis=1, inplace=True)
 
 	# Split data into two parts 4/6, by stratifing privileges
-	X_train, X_test = train_test_split(data, train_size=0.2, shuffle=True, stratify=data.privileges_data) 
+	X_train, X_test = train_test_split(data, train_size=0.25, shuffle=True, stratify=data.privileges_data) 
 	data = X_train
 	
 	return data.reset_index(drop=True)
@@ -122,10 +122,14 @@ def get_best_privileges(user_data, job, department):
 		user_privs_data['user_id'] = user_data.user_id
 
 		# Initialize Agglomerative clustering instanse from sklearn
-		agg_clustering = AgglomerativeClustering(n_clusters=None, compute_full_tree=True, distance_threshold=11)
+		agg_clustering = AgglomerativeClustering(n_clusters=None, compute_full_tree=True, distance_threshold=15	)
 
 		# Fit the data without user_id
 		fit_data = agg_clustering.fit(user_privs_data.drop('user_id', axis=1))
+
+		print("------------------------------")
+		print("Cluster Count: ", fit_data.n_clusters_)
+		print("------------------------------")
 
 		# Get result from agglometrative model - cluster labels
 		result = pd.DataFrame(fit_data.labels_, columns=['id'])
@@ -155,6 +159,7 @@ def get_best_privileges(user_data, job, department):
 		index = 1
 		# if len(result_data.cluster_label.value_counts().index.tolist()) > 3:
 		#   index = 2
+		print(result_data.cluster_label.value_counts().index.tolist())
 
 		best_cluster_label = result_data.cluster_label.value_counts().index.tolist()[0: index]
 
@@ -181,6 +186,9 @@ def get_best_privileges(user_data, job, department):
 		# Sort privileges_count (not needed )
 		#privileges_counts = dict(sorted(privileges_counts.items(),key= lambda x:x[1]))
 		sorted_privileges_counts = sorted(privileges_counts.items(), key=lambda x: x[1], reverse=True)
+		print("------------------------")
+		print("Sorted dict: ", sorted_privileges_counts)
+		print("------------------------")
 
 		# Filter privileges_count to get the best privileges
 		filtered_privileges_counts = list(filter(lambda x: x[1] > users_count*0.4, sorted_privileges_counts))

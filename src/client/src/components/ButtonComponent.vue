@@ -106,5 +106,6 @@ export default {
   text-align: center;
   margin-left: 2ch;
   margin-right: 2ch;
+  padding: 0px;
 }
 </style>
